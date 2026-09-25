@@ -8,7 +8,7 @@ const {
   assignWorker,
   completeLead,
   cancelLead
-} = require("../controllers/leadController");
+} = require("../controllers/LeadController");
 
 router.post("/create", createLead);
 router.get("/all", getAllLeads);
