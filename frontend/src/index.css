@@ -1,0 +1,779 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --primary: #8F43FF;      /* Neon Violet */
+  --primary-glow: rgba(143, 67, 255, 0.4);
+  --secondary: #00F0FF;    /* Cyber Cyan */
+  --secondary-glow: rgba(0, 240, 255, 0.3);
+  --accent: #FF007F;       /* Hot Pink */
+  --success: #39FF14;      /* Lime Neon */
+  --warning: #FFD700;      /* Gold */
+  --danger: #FF3366;       /* Neon Red */
+  --bg: #05050A;           /* Deep Cyber Void */
+  --bg-card: rgba(13, 13, 25, 0.8);
+  --bg-inner: #121225;
+  --border: #2A2A4A;
+  --border-neon: #8F43FF;
+  --text: #F3F4F6;
+  --text-muted: #8E8EA8;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --neo-shadow: 4px 4px 0px #8F43FF;
+  --neo-shadow-sec: 4px 4px 0px #00F0FF;
+  --neo-shadow-accent: 4px 4px 0px #FF007F;
+  --transition: cubic-bezier(0.4, 0, 0.2, 1) 0.3s;
+  --sidebar-width: 280px;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ── Cyber Mesh & Aura Backgrounds ── */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: 
+    radial-gradient(circle at 10% 20%, rgba(143, 67, 255, 0.15) 0%, transparent 40%),
+    radial-gradient(circle at 90% 80%, rgba(0, 240, 255, 0.12) 0%, transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(255, 0, 127, 0.08) 0%, transparent 50%);
+  z-index: -2;
+  pointer-events: none;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 24px 24px;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.8;
+}
+
+/* ── Scrollbars ── */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--primary), var(--secondary));
+  border-radius: 5px;
+  border: 2px solid var(--bg);
+}
+
+/* ── Typography (Space Grotesk for Heading pop) ── */
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+}
+
+h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); }
+h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); }
+h3 { font-size: 1.5rem; }
+
+p {
+  color: var(--text-muted);
+}
+
+/* ── Neon Glow & Gradient Text ── */
+.gradient-text {
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 50%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 10px rgba(0, 240, 255, 0.3));
+}
+
+.glow-cyan { text-shadow: 0 0 15px var(--secondary-glow); }
+.glow-purple { text-shadow: 0 0 15px var(--primary-glow); }
+
+/* ── GenZ Neo-Brutalist Buttons ── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border-radius: var(--radius-md);
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: var(--transition);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary {
+  background: var(--primary);
+  color: #fff;
+  border: 2px solid #000;
+  box-shadow: var(--neo-shadow);
+}
+.btn-primary:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px #000, 0 0 20px var(--primary-glow);
+  background: #9d5bff;
+}
+.btn-primary:active {
+  transform: translate(2px, 2px);
+  box-shadow: 2px 2px 0px #000;
+}
+
+.btn-secondary {
+  background: var(--bg-inner);
+  color: var(--text);
+  border: 2px solid var(--border);
+  box-shadow: 4px 4px 0px rgba(255,255,255,0.05);
+}
+.btn-secondary:hover {
+  border-color: var(--secondary);
+  color: var(--secondary);
+  box-shadow: var(--neo-shadow-sec);
+  transform: translateY(-2px);
+}
+
+.btn-accent {
+  background: var(--accent);
+  color: #fff;
+  border: 2px solid #000;
+  box-shadow: var(--neo-shadow-accent);
+}
+.btn-accent:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px #000, 0 0 15px rgba(255, 0, 127, 0.4);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text);
+  border: 2px solid var(--text);
+}
+.btn-outline:hover {
+  background: var(--text);
+  color: var(--bg);
+  transform: translateY(-2px);
+}
+
+.btn-sm {
+  padding: 8px 16px;
+  font-size: 0.85rem;
+  border-radius: var(--radius-sm);
+}
+
+.btn-full {
+  width: 100%;
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* ── Bento-Style Cards with Heavy Neon Borders ── */
+.card {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  position: relative;
+  transition: var(--transition);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 4px;
+  background: linear-gradient(90deg, var(--primary), var(--secondary), var(--accent));
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.card:hover {
+  border-color: var(--primary);
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(143, 67, 255, 0.15), 0 0 30px rgba(0, 240, 255, 0.05);
+}
+
+.card:hover::before {
+  opacity: 1;
+}
+
+.card-sm {
+  padding: 20px;
+  border-radius: var(--radius-md);
+}
+
+/* ── Interactive Input Fields ── */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 22px;
+}
+
+.form-group label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text);
+}
+
+.form-control {
+  background: var(--bg-inner);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 14px 18px;
+  color: var(--text);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.95rem;
+  transition: var(--transition);
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--secondary);
+  box-shadow: 0 0 15px var(--secondary-glow);
+  transform: scale(1.01);
+}
+
+.form-control::placeholder {
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+.form-error {
+  font-size: 0.8rem;
+  color: var(--danger);
+  font-weight: 600;
+  margin-top: 4px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* ── Badges / Stickers ── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 14px;
+  border-radius: 50px;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 1px solid transparent;
+}
+
+.badge-primary {
+  background: rgba(143, 67, 255, 0.15);
+  color: #c094ff;
+  border-color: rgba(143, 67, 255, 0.4);
+}
+
+.badge-success {
+  background: rgba(57, 255, 20, 0.12);
+  color: var(--success);
+  border-color: rgba(57, 255, 20, 0.3);
+  box-shadow: 0 0 10px rgba(57, 255, 20, 0.1);
+}
+
+.badge-danger {
+  background: rgba(255, 51, 102, 0.12);
+  color: var(--danger);
+  border-color: rgba(255, 51, 102, 0.3);
+}
+
+.badge-warning {
+  background: rgba(255, 215, 0, 0.12);
+  color: var(--warning);
+  border-color: rgba(255, 215, 0, 0.3);
+}
+
+.badge-muted {
+  background: rgba(142, 142, 168, 0.15);
+  color: var(--text-muted);
+  border-color: rgba(142, 142, 168, 0.3);
+}
+
+/* ── Stat Cards (Bento) ── */
+.stat-card {
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.stat-card::after {
+  content: '';
+  position: absolute;
+  width: 150px; height: 150px;
+  background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
+  top: -75px; right: -75px;
+  pointer-events: none;
+}
+
+.stat-card .stat-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  background: var(--bg-inner);
+  border: 2px solid var(--border);
+}
+
+.stat-card .stat-value {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.stat-card .stat-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+}
+
+/* ── Custom Bento Grid Table ── */
+.table-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--border);
+  background: var(--bg-card);
+}
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+thead {
+  background: var(--bg-inner);
+}
+
+th {
+  padding: 18px 24px;
+  text-align: left;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom: 2px solid var(--border);
+}
+
+td {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.95rem;
+  transition: var(--transition);
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+tr:hover td {
+  background: rgba(143, 67, 255, 0.05);
+}
+
+/* ── Modern Navigation Bar ── */
+.navbar {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  background: rgba(5, 5, 10, 0.75);
+  backdrop-filter: blur(20px);
+  border-bottom: 2px solid var(--border);
+  padding: 0 48px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-brand {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--text);
+  letter-spacing: -0.03em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.navbar-brand span {
+  color: var(--secondary);
+  text-shadow: 0 0 10px var(--secondary-glow);
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  list-style: none;
+}
+
+.navbar-links a {
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: var(--transition);
+  position: relative;
+  padding: 6px 0;
+}
+
+.navbar-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; width: 0; height: 2px;
+  background: var(--secondary);
+  transition: var(--transition);
+  box-shadow: 0 0 8px var(--secondary);
+}
+
+.navbar-links a:hover {
+  color: var(--text);
+}
+
+.navbar-links a:hover::after {
+  width: 100%;
+}
+
+.navbar-actions {
+  display: flex;
+  gap: 16px;
+}
+
+/* ── Playful Sidebar Layout ── */
+.sidebar {
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  width: var(--sidebar-width);
+  background: var(--bg-card);
+  backdrop-filter: blur(20px);
+  border-right: 2px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  z-index: 99;
+}
+
+.sidebar-logo {
+  padding: 32px 24px;
+  border-bottom: 2px solid var(--border);
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+}
+
+.sidebar-logo span {
+  color: var(--primary);
+  text-shadow: 0 0 10px var(--primary-glow);
+}
+
+.sidebar-nav {
+  flex: 1;
+  padding: 24px 16px;
+  overflow-y: auto;
+}
+
+.sidebar-nav ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sidebar-nav a {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-radius: var(--radius-md);
+  color: var(--text-muted);
+  font-weight: 600;
+  transition: var(--transition);
+  border: 1px solid transparent;
+}
+
+.sidebar-nav a:hover {
+  background: rgba(143, 67, 255, 0.08);
+  color: var(--text);
+  border-color: rgba(143, 67, 255, 0.2);
+}
+
+.sidebar-nav a.active {
+  background: var(--primary);
+  color: #fff;
+  font-weight: 700;
+  box-shadow: 0 4px 15px var(--primary-glow);
+}
+
+.sidebar-nav a .nav-icon {
+  font-size: 1.3rem;
+}
+
+.sidebar-footer {
+  padding: 24px 16px;
+  border-top: 2px solid var(--border);
+}
+
+/* ── Main Layout ── */
+.page-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  margin-left: var(--sidebar-width);
+  padding: 48px;
+  transition: var(--transition);
+  position: relative;
+  z-index: 1;
+}
+
+.page-header {
+  margin-bottom: 40px;
+}
+
+.page-header h1 {
+  font-size: 2.2rem;
+  margin-bottom: 8px;
+}
+
+/* ── Auth Forms Card overhauls ── */
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32px 20px;
+  position: relative;
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 500px;
+  background: var(--bg-card);
+  backdrop-filter: blur(24px);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 48px;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+  position: relative;
+}
+
+.auth-card::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  z-index: -1;
+  opacity: 0.3;
+}
+
+.auth-card h2 {
+  font-size: 2rem;
+}
+
+/* ── Giant Bento Grid for Home Page ── */
+.hero-section {
+  min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 140px 24px 80px;
+  position: relative;
+}
+
+.hero-section h1 {
+  line-height: 0.95;
+  margin-bottom: 24px;
+}
+
+.hero-section p {
+  font-size: 1.25rem;
+  max-width: 650px;
+  margin: 0 auto 40px;
+  font-weight: 500;
+}
+
+/* ── Cool GenZ Stickers ── */
+.sticker {
+  display: inline-block;
+  padding: 6px 12px;
+  background: var(--accent);
+  color: #fff;
+  font-family: 'Space Grotesk', sans-serif;
+  font-weight: 800;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  border-radius: 4px;
+  transform: rotate(-3deg);
+  box-shadow: 3px 3px 0px #000;
+  border: 1px solid #000;
+  margin-bottom: 12px;
+}
+
+.sticker-success {
+  background: var(--success);
+  color: #000;
+  transform: rotate(2deg);
+}
+
+/* ── OTP box customizations ── */
+.otp-inputs {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  margin: 32px 0;
+}
+
+.otp-input {
+  width: 56px;
+  height: 64px;
+  text-align: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: var(--bg-inner);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-md);
+  color: var(--secondary);
+  transition: var(--transition);
+}
+
+.otp-input:focus {
+  outline: none;
+  border-color: var(--secondary);
+  box-shadow: 0 0 15px var(--secondary-glow);
+  transform: scale(1.08);
+}
+
+/* ── Worker Cards ── */
+.worker-card {
+  background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.worker-card:hover {
+  border-color: var(--secondary);
+  box-shadow: var(--neo-shadow-sec);
+  transform: translate(-3px, -3px);
+}
+
+.worker-card .worker-avatar {
+  width: 60px;
+  height: 60px;
+  border-radius: var(--radius-md);
+  background: linear-gradient(135deg, var(--primary), var(--secondary));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: #fff;
+  border: 2px solid #000;
+  box-shadow: 3px 3px 0 #000;
+}
+
+/* ── Custom Alert Messages ── */
+.alert {
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+  border: 2px solid transparent;
+}
+
+.alert-error {
+  background: rgba(255, 51, 102, 0.1);
+  border-color: var(--danger);
+  color: #ff7696;
+}
+
+.alert-success {
+  background: rgba(57, 255, 20, 0.1);
+  border-color: var(--success);
+  color: #a8ffa0;
+}
+
+/* ── Grid Utilities ── */
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+
+@media (max-width: 1024px) {
+  .sidebar { transform: translateX(-100%); }
+  .sidebar.open { transform: translateX(0); }
+  .main-content { margin-left: 0; padding: 28px; }
+  .grid-3 { grid-template-columns: 1fr 1fr; }
+  .grid-4 { grid-template-columns: 1fr 1fr; }
+}
+
+@media (max-width: 640px) {
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .auth-card { padding: 32px 20px; }
+  .navbar { padding: 0 20px; }
+  .navbar-links { display: none; }
+}
